@@ -1,27 +1,24 @@
 package sciter
 
-/*
-#include "sciter-x.h"
-*/
 import "C"
 import (
 	"fmt"
 	"unsafe"
 )
 
-// enum SCITER_CREATE_WINDOW_FLAGS {
-//    SW_CHILD      = (1 << 0), // child window only, if this flag is set all other flags ignored
-//    SW_TITLEBAR   = (1 << 1), // toplevel window, has titlebar
-//    SW_RESIZEABLE = (1 << 2), // has resizeable frame
-//    SW_TOOL       = (1 << 3), // is tool window
-//    SW_CONTROLS   = (1 << 4), // has minimize / maximize buttons
-//    SW_GLASSY     = (1 << 5), // glassy window ( DwmExtendFrameIntoClientArea on windows )
-//    SW_ALPHA      = (1 << 6), // transparent window ( e.g. WS_EX_LAYERED on Windows )
-//    SW_MAIN       = (1 << 7), // main window of the app, will terminate the app on close
-//    SW_POPUP      = (1 << 8), // the window is created as topmost window.
-//    SW_ENABLE_DEBUG = (1 << 9), // make this window inspector ready
-//    SW_OWNS_VM      = (1 << 10), // it has its own script VM
-// };
+//	enum SCITER_CREATE_WINDOW_FLAGS {
+//	   SW_CHILD      = (1 << 0), // child window only, if this flag is set all other flags ignored
+//	   SW_TITLEBAR   = (1 << 1), // toplevel window, has titlebar
+//	   SW_RESIZEABLE = (1 << 2), // has resizeable frame
+//	   SW_TOOL       = (1 << 3), // is tool window
+//	   SW_CONTROLS   = (1 << 4), // has minimize / maximize buttons
+//	   SW_GLASSY     = (1 << 5), // glassy window ( DwmExtendFrameIntoClientArea on windows )
+//	   SW_ALPHA      = (1 << 6), // transparent window ( e.g. WS_EX_LAYERED on Windows )
+//	   SW_MAIN       = (1 << 7), // main window of the app, will terminate the app on close
+//	   SW_POPUP      = (1 << 8), // the window is created as topmost window.
+//	   SW_ENABLE_DEBUG = (1 << 9), // make this window inspector ready
+//	   SW_OWNS_VM      = (1 << 10), // it has its own script VM
+//	};
 type WindowCreationFlag uint32
 
 const (
@@ -537,7 +534,7 @@ type InitializationParams struct {
 
 type MouseParams struct {
 	Cmd         MouseEvent // MouseEvents
-	Target      C.HELEMENT
+	Target      HELEMENT
 	Pos         Point
 	DocumentPos Point
 	ButtonState MouseButton
@@ -545,20 +542,20 @@ type MouseParams struct {
 	CursorType  CursorType
 	IsOnIcon    int32
 
-	Dragging     C.HELEMENT
+	Dragging     HELEMENT
 	DraggingMode DraggingType
 }
 
 type KeyParams struct {
 	Cmd      KeyEvent // KeyEvents
-	Target   C.HELEMENT
+	Target   HELEMENT
 	KeyCode  uint32
 	AltState KeyboardState
 }
 
 type FocusParams struct {
 	Cmd          FocusEvent // FocusEvents
-	Target       C.HELEMENT
+	Target       HELEMENT
 	ByMouseClick int32 // boolean // true if focus is being set by mouse click
 	Cancel       int32 // boolean // in FOCUS_LOST phase setting this field to true will cancel transfer focus from old element to the new one.
 }
@@ -575,18 +572,19 @@ type TimerParams struct {
 }
 
 // typedef struct BEHAVIOR_EVENT_PARAMS
-// {
-//   UINT     cmd;        // BEHAVIOR_EVENTS
-//   HELEMENT heTarget;   // target element handler, in MENU_ITEM_CLICK this is owner element that caused this menu - e.g. context menu owner
-//                        // In scripting this field named as Event.owner
-//   HELEMENT he;         // source element e.g. in SELECTION_CHANGED it is new selected <option>, in MENU_ITEM_CLICK it is menu item (LI) element
-//   UINT_PTR reason;     // EVENT_REASON or EDIT_CHANGED_REASON - UI action causing change.
-//                        // In case of custom event notifications this may be any
-//                        // application specific value.
-//   SCITER_VALUE
-//            data;       // auxiliary data accompanied with the event. E.g. FORM_SUBMIT event is using this field to pass collection of values.
-// } BEHAVIOR_EVENT_PARAMS;
-type BehaviorEventParams C.BEHAVIOR_EVENT_PARAMS
+//
+//	{
+//	  UINT     cmd;        // BEHAVIOR_EVENTS
+//	  HELEMENT heTarget;   // target element handler, in MENU_ITEM_CLICK this is owner element that caused this menu - e.g. context menu owner
+//	                       // In scripting this field named as Event.owner
+//	  HELEMENT he;         // source element e.g. in SELECTION_CHANGED it is new selected <option>, in MENU_ITEM_CLICK it is menu item (LI) element
+//	  UINT_PTR reason;     // EVENT_REASON or EDIT_CHANGED_REASON - UI action causing change.
+//	                       // In case of custom event notifications this may be any
+//	                       // application specific value.
+//	  SCITER_VALUE
+//	           data;       // auxiliary data accompanied with the event. E.g. FORM_SUBMIT event is using this field to pass collection of values.
+//	} BEHAVIOR_EVENT_PARAMS;
+type BehaviorEventParams BEHAVIOR_EVENT_PARAMS
 
 func (b *BehaviorEventParams) Cmd() BehaviorEvent {
 	return BehaviorEvent(b.cmd & 0xFFF)
@@ -610,10 +608,10 @@ type MethodParams struct {
 //     SCITER_VALUE  result; //< return value
 // } SCRIPTING_METHOD_PARAMS;
 
-type ScriptingMethodParams C.SCRIPTING_METHOD_PARAMS
+type ScriptingMethodParams SCRIPTING_METHOD_PARAMS
 
 func (s *ScriptingMethodParams) Name() string {
-	return C.GoString(s.name)
+	return GoString(s.name)
 }
 
 func (s *ScriptingMethodParams) Argc() int {
@@ -655,11 +653,12 @@ type TiscriptValue uint64
 
 // // pinned tiscript_value, val here will survive GC.
 // typedef struct tiscript_pvalue
-// {
-//    tiscript_value val;
-//    struct tiscript_VM* vm;
-//    void *d1,*d2;
-// } tiscript_pvalue;
+//
+//	{
+//	   tiscript_value val;
+//	   struct tiscript_VM* vm;
+//	   void *d1,*d2;
+//	} tiscript_pvalue;
 type TiscriptPvalue struct {
 	Val    TiscriptValue
 	VM     HVM
@@ -667,12 +666,13 @@ type TiscriptPvalue struct {
 }
 
 // typedef struct TISCRIPT_METHOD_PARAMS
-// {
-//     tiscript_VM*   vm;
-//     tiscript_value tag;    //< method id (symbol)
-//     tiscript_value result; //< return value
-//     // parameters are accessible through tiscript::args.
-// } TISCRIPT_METHOD_PARAMS;
+//
+//	{
+//	    tiscript_VM*   vm;
+//	    tiscript_value tag;    //< method id (symbol)
+//	    tiscript_value result; //< return value
+//	    // parameters are accessible through tiscript::args.
+//	} TISCRIPT_METHOD_PARAMS;
 type TiscriptMethodParams struct {
 	// tiscript_VM    *vm
 	VM HVM
@@ -683,20 +683,21 @@ type TiscriptMethodParams struct {
 }
 
 // typedef struct DATA_ARRIVED_PARAMS
-// {
-//     HELEMENT  initiator;    // element intiator of HTMLayoutRequestElementData request,
-//     LPCBYTE   data;         // data buffer
-//     UINT      dataSize;     // size of data
-//     UINT      dataType;     // data type passed "as is" from HTMLayoutRequestElementData
-//     UINT      status;       // status = 0 (dataSize == 0) - unknown error.
-//                             // status = 100..505 - http response status, Note: 200 - OK!
-//                             // status > 12000 - wininet error code, see ERROR_INTERNET_*** in wininet.h
-//     LPCWSTR   uri;          // requested url
-// } DATA_ARRIVED_PARAMS;
-type DataArrivedParams C.DATA_ARRIVED_PARAMS
+//
+//	{
+//	    HELEMENT  initiator;    // element intiator of HTMLayoutRequestElementData request,
+//	    LPCBYTE   data;         // data buffer
+//	    UINT      dataSize;     // size of data
+//	    UINT      dataType;     // data type passed "as is" from HTMLayoutRequestElementData
+//	    UINT      status;       // status = 0 (dataSize == 0) - unknown error.
+//	                            // status = 100..505 - http response status, Note: 200 - OK!
+//	                            // status > 12000 - wininet error code, see ERROR_INTERNET_*** in wininet.h
+//	    LPCWSTR   uri;          // requested url
+//	} DATA_ARRIVED_PARAMS;
+type DataArrivedParams DATA_ARRIVED_PARAMS
 
 // type DataArrivedParams struct {
-// 	Initiator C.HELEMENT
+// 	Initiator HELEMENT
 // 	data      *byte
 // 	DataSize  uint32
 // 	DataType  uint32
@@ -713,29 +714,30 @@ func (d *DataArrivedParams) Data() []byte {
 }
 
 // struct SCROLL_PARAMS
-// {
-//   UINT      cmd;          // SCROLL_EVENTS
-//   HELEMENT  target;       // target element
-//   INT       pos;          // scroll position if SCROLL_POS
-//   BOOL      vertical;     // true if from vertical scrollbar
-// };
+//
+//	{
+//	  UINT      cmd;          // SCROLL_EVENTS
+//	  HELEMENT  target;       // target element
+//	  INT       pos;          // scroll position if SCROLL_POS
+//	  BOOL      vertical;     // true if from vertical scrollbar
+//	};
 type ScrollParams struct {
 	Cmd      ScrollEvent
-	Target   C.HELEMENT
+	Target   HELEMENT
 	Pos      int32
 	Vertical int32 // bool
 }
 
-// enum EXCHANGE_CMD {
-// 	X_DRAG_ENTER = 0,       // drag enters the element
-// 	X_DRAG_LEAVE = 1,       // drag leaves the element
-// 	X_DRAG = 2,             // drag over the element
-// 	X_DROP = 3,             // data dropped on the element
-// 	X_PASTE = 4,            // N/A
-// 	X_DRAG_REQUEST = 5,     // N/A
-// 	X_DRAG_CANCEL = 6,      // drag cancelled (e.g. by pressing VK_ESCAPE)
-// 	X_WILL_ACCEPT_DROP = 7, // drop target element shall consume this event in order to receive X_DROP
-// };
+//	enum EXCHANGE_CMD {
+//		X_DRAG_ENTER = 0,       // drag enters the element
+//		X_DRAG_LEAVE = 1,       // drag leaves the element
+//		X_DRAG = 2,             // drag over the element
+//		X_DROP = 3,             // data dropped on the element
+//		X_PASTE = 4,            // N/A
+//		X_DRAG_REQUEST = 5,     // N/A
+//		X_DRAG_CANCEL = 6,      // drag cancelled (e.g. by pressing VK_ESCAPE)
+//		X_WILL_ACCEPT_DROP = 7, // drop target element shall consume this event in order to receive X_DROP
+//	};
 type ExchangeCmd uint32
 
 const (
@@ -749,13 +751,13 @@ const (
 	X_WILL_ACCEPT_DROP
 )
 
-// enum DD_MODES {
-// 	DD_MODE_NONE = 0, // DROPEFFECT_NONE	( 0 )
-// 	DD_MODE_COPY = 1, // DROPEFFECT_COPY	( 1 )
-// 	DD_MODE_MOVE = 2, // DROPEFFECT_MOVE	( 2 )
-// 	DD_MODE_COPY_OR_MOVE = 3, // DROPEFFECT_COPY	( 1 ) | DROPEFFECT_MOVE	( 2 )
-// 	DD_MODE_LINK = 4, // DROPEFFECT_LINK	( 4 )
-// };
+//	enum DD_MODES {
+//		DD_MODE_NONE = 0, // DROPEFFECT_NONE	( 0 )
+//		DD_MODE_COPY = 1, // DROPEFFECT_COPY	( 1 )
+//		DD_MODE_MOVE = 2, // DROPEFFECT_MOVE	( 2 )
+//		DD_MODE_COPY_OR_MOVE = 3, // DROPEFFECT_COPY	( 1 ) | DROPEFFECT_MOVE	( 2 )
+//		DD_MODE_LINK = 4, // DROPEFFECT_LINK	( 4 )
+//	};
 type DDMode uint32
 
 const (
@@ -767,19 +769,20 @@ const (
 )
 
 // struct EXCHANGE_PARAMS
-// {
-//   UINT         cmd;          // EXCHANGE_EVENTS
-//   HELEMENT     target;       // target element
-//   HELEMENT     source;       // source element (can be null if D&D from external window)
-//   POINT        pos;          // position of cursor, element relative
-//   POINT        pos_view;     // position of cursor, view relative
-//   UINT         mode;         // DD_MODE
-//   SCITER_VALUE data;         // packaged drag data
-// };
+//
+//	{
+//	  UINT         cmd;          // EXCHANGE_EVENTS
+//	  HELEMENT     target;       // target element
+//	  HELEMENT     source;       // source element (can be null if D&D from external window)
+//	  POINT        pos;          // position of cursor, element relative
+//	  POINT        pos_view;     // position of cursor, view relative
+//	  UINT         mode;         // DD_MODE
+//	  SCITER_VALUE data;         // packaged drag data
+//	};
 type ExchangeParams struct {
 	Cmd     ExchangeCmd
-	Target  C.HELEMENT
-	Source  C.HELEMENT
+	Target  HELEMENT
+	Source  HELEMENT
 	Pos     Point
 	PosView Point
 	Mode    DDMode
@@ -793,15 +796,18 @@ type ExchangeParams struct {
 // POINT     pos;          // position of cursor, element relative
 // POINT     pos_view;     // position of cursor, view relative
 // UINT      flags;        // for GESTURE_REQUEST combination of GESTURE_FLAGs.
-//                         // for others it is a combination of GESTURE_STATe's
+//
+//	// for others it is a combination of GESTURE_STATe's
+//
 // UINT      delta_time;   // period of time from previous event.
 // SIZE      delta_xy;     // for GESTURE_PAN it is a direction vector
 // double    delta_v;      // for GESTURE_ROTATE - delta angle (radians)
-//                         // for GESTURE_ZOOM - zoom value, is less or greater than 1.0
-// };
+//
+//	                        // for GESTURE_ZOOM - zoom value, is less or greater than 1.0
+//	};
 type GestureParams struct {
 	Cmd       GestureCmd
-	Target    C.HELEMENT
+	Target    HELEMENT
 	Pos       Point
 	PosView   Point
 	Flags     uint32
@@ -817,7 +823,8 @@ const (
 	SOM_GET_ASSET    = 1
 )
 
-type SomParams C.SOM_PARAMS
+type SOM_PARAMS interface{}
+type SomParams SOM_PARAMS
 
 const (
 	LOAD_OK      = 0 // do default loading if data not set
@@ -921,7 +928,7 @@ const (
 // } SCITER_CALLBACK_NOTIFICATION;
 type SciterCallbackNotification struct {
 	Code uint32
-	Hwnd C.HWINDOW
+	Hwnd HWINDOW
 }
 
 /**This structure is used by #SC_ENGINE_DESTROYED notification.
@@ -991,7 +998,7 @@ type ScnInvalidateRect struct {
 //    HELEMENT initiator;
 //} SCN_LOAD_DATA;
 
-type ScnLoadData C.SCN_LOAD_DATA
+type ScnLoadData SCN_LOAD_DATA
 
 // type ScnLoadData struct {
 // 	SciterCallbackNotification
@@ -1000,15 +1007,15 @@ type ScnLoadData C.SCN_LOAD_DATA
 // 	outDataSize uint
 // 	DataType    uint
 // 	RequestId   uintptr
-// 	Principal   C.HELEMENT
-// 	Initiator   C.HELEMENT
+// 	Principal    HELEMENT
+// 	Initiator    HELEMENT
 // }
 
 func (s *ScnLoadData) Uri() string {
 	return Utf16ToString((*uint16)(unsafe.Pointer(s.uri)))
 }
 
-func (s *ScnLoadData) RequestId() C.HREQUEST {
+func (s *ScnLoadData) RequestId() HREQUEST {
 	return s.requestId
 }
 
@@ -1018,8 +1025,8 @@ func (s *ScnLoadData) Data() []byte {
 }
 
 func (s *ScnLoadData) SetData(data []byte) {
-	s.outData = (C.LPCBYTE)(unsafe.Pointer((&data[0])))
-	s.outDataSize = C.UINT(len(data))
+	s.outData = (LPCBYTE)(unsafe.Pointer((&data[0])))
+	s.outDataSize = UINT(len(data))
 }
 
 /**This structure is used by #SCN_DATA_LOADED notification.
@@ -1057,39 +1064,40 @@ func (s *ScnDataLoaded) Data() []byte {
 	return BytePtrToBytes(s.data, uint(s.DataSize))
 }
 
-//typedef struct SCN_ATTACH_BEHAVIOR
-//{
-//    UINT code; /**< [in] one of the codes above.*/
-//    HWINDOW hwnd; /**< [in] HWINDOW of the window this callback was attached to.*/
+// typedef struct SCN_ATTACH_BEHAVIOR
 //
-//    HELEMENT element;          /**< [in] target DOM element handle*/
-//    LPCSTR   behaviorName;     /**< [in] zero terminated string, string appears as value of CSS behavior:"???" attribute.*/
+//	{
+//	   UINT code; /**< [in] one of the codes above.*/
+//	   HWINDOW hwnd; /**< [in] HWINDOW of the window this callback was attached to.*/
 //
-//    ElementEventProc* elementProc;    /**< [out] pointer to ElementEventProc function.*/
-//    LPVOID            elementTag;     /**< [out] tag value, passed as is into pointer ElementEventProc function.*/
+//	   HELEMENT element;          /**< [in] target DOM element handle*/
+//	   LPCSTR   behaviorName;     /**< [in] zero terminated string, string appears as value of CSS behavior:"???" attribute.*/
 //
-//} SCN_ATTACH_BEHAVIOR;
-type ScnAttachBehavior C.SCN_ATTACH_BEHAVIOR
+//	   ElementEventProc* elementProc;    /**< [out] pointer to ElementEventProc function.*/
+//	   LPVOID            elementTag;     /**< [out] tag value, passed as is into pointer ElementEventProc function.*/
+//
+// } SCN_ATTACH_BEHAVIOR;
+type ScnAttachBehavior SCN_ATTACH_BEHAVIOR
 
 // type ScnAttachBehavior struct {
 // 	SciterCallbackNotification
-// 	Element      C.HELEMENT
+// 	Element       HELEMENT
 // 	behaviorName *byte
 // 	ElementProc  uintptr
 // 	ElementTag   uintptr
 // }
 
 func (s *ScnAttachBehavior) BehaviorName() string {
-	return C.GoString(s.behaviorName)
+	return GoString(s.behaviorName)
 }
 
-func (s *ScnAttachBehavior) Element() C.HELEMENT {
+func (s *ScnAttachBehavior) Element() HELEMENT {
 	return s.element
 }
 
 // typedef int SCDOM_RESULT;
 type SCDOM_RESULT int32
-type VALUE_RESULT int32 //C.VALUE_RESULT
+type VALUE_RESULT int32 // VALUE_RESULT
 
 // enum VALUE_RESULT
 const (
@@ -1126,11 +1134,11 @@ func newDomError(ret SCDOM_RESULT, msg string) *domError {
 }
 
 // return nil when r == SCDOM_OK
-func wrapDomResult(r C.INT, msg string) error {
-	if r == C.INT(SCDOM_OK) {
+func wrapDomResult(r SCDOM_RESULT, msg string) error {
+	if r == SCDOM_OK {
 		return nil
 	}
-	return newDomError(SCDOM_RESULT(r), msg)
+	return newDomError(r, msg)
 }
 
 // enum ELEMENT_AREAS

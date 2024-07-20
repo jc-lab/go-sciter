@@ -1,8 +1,7 @@
 package window
 
 import (
-	"github.com/sciter-sdk/go-sciter"
-	"runtime"
+	"github.com/jc-lab/go-sciter"
 )
 
 type Window struct {
@@ -10,12 +9,6 @@ type Window struct {
 	creationFlags sciter.WindowCreationFlag
 }
 
-func (w *Window) run() {
-	// runtime.LockOSThread()
-}
-
-// https://github.com/golang/go/wiki/LockOSThread
-// https://github.com/sciter-sdk/go-sciter/issues/201
-func init() {
-	runtime.LockOSThread()
+func (s *Window) Run() {
+	sciter.GetApi().SciterExec(sciter.SCITER_APP_LOOP, 0, 0)
 }

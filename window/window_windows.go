@@ -1,16 +1,18 @@
 package window
 
-/*
-#include <windows.h>
-*/
-import "C"
 import (
 	"fmt"
 	"syscall"
 	"unsafe"
 
+	"github.com/jc-lab/go-sciter"
 	"github.com/lxn/win"
-	"github.com/sciter-sdk/go-sciter"
+)
+
+var (
+	user32        = syscall.NewLazyDLL("user32.dll")
+	setWindowText = user32.NewProc("SetWindowTextW")
+	delegate_proc = syscall.NewCallback(delegateProc)
 )
 
 func New(creationFlags sciter.WindowCreationFlag, rect *sciter.Rect) (*Window, error) {
@@ -24,7 +26,7 @@ func New(creationFlags sciter.WindowCreationFlag, rect *sciter.Rect) (*Window, e
 	hwnd := sciter.CreateWindow(
 		creationFlags,
 		rect,
-		syscall.NewCallback(delegateProc),
+		delegate_proc,
 		0,
 		sciter.BAD_HWINDOW)
 
@@ -45,26 +47,11 @@ func (s *Window) Show() {
 
 func (s *Window) SetTitle(title string) {
 	// message handling
-	hwnd := C.HWND(unsafe.Pointer(s.GetHwnd()))
-	C.SetWindowTextW(hwnd, (*C.WCHAR)(unsafe.Pointer(sciter.StringToWcharPtr(title))))
+	setWindowText.Call(uintptr(s.GetHwnd()), (uintptr)(unsafe.Pointer(sciter.StringToWcharPtr(title))))
 }
 
 func (s *Window) AddQuitMenu() {
 	// Define behaviour for windows
-}
-
-func (s *Window) Run() {
-	// for system drag-n-drop
-	// win.OleInitialize()
-	// defer win.OleUninitialize()
-	s.run()
-	// start main gui message loop
-	msg := (*win.MSG)(unsafe.Pointer(win.GlobalAlloc(0, unsafe.Sizeof(win.MSG{}))))
-	defer win.GlobalFree(win.HGLOBAL(unsafe.Pointer(msg)))
-	for win.GetMessage(msg, 0, 0, 0) > 0 {
-		win.TranslateMessage(msg)
-		win.DispatchMessage(msg)
-	}
 }
 
 // delegate Windows GUI messsage

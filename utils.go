@@ -1,9 +1,5 @@
 package sciter
 
-/*
-#cgo CFLAGS: -Iinclude
-#include "sciter-x.h"
-*/
 import "C"
 import (
 	"syscall"
@@ -55,8 +51,8 @@ func Utf16FromString(s string) ([]uint16, error) {
 	return utf16.Encode([]rune(s + "\x00")), nil
 }
 
-func StringToWcharPtr(s string) *C.WCHAR {
-	return (*C.WCHAR)(unsafe.Pointer(StringToUTF16Ptr(s)))
+func StringToWcharPtr(s string) *WCHAR {
+	return (*WCHAR)(unsafe.Pointer(StringToUTF16Ptr(s)))
 }
 
 func StringToUTF16Ptr(s string) *uint16 {
@@ -70,12 +66,12 @@ func StringToUTF16PtrWithLen(s string) (*uint16, int) {
 	return &us[0], length
 }
 
-func ByteCPtrToBytes(bp C.LPCBYTE, size C.UINT) []byte {
-	bs := C.GoBytes(unsafe.Pointer(bp), C.INT(size))
+func ByteCPtrToBytes(bp LPCBYTE, size UINT) []byte {
+	bs := GoBytes(unsafe.Pointer(bp), INT(size))
 	return bs
 }
 
 func BytePtrToBytes(bp *byte, size uint) []byte {
-	bs := C.GoBytes(unsafe.Pointer(bp), C.INT(size))
+	bs := GoBytes(unsafe.Pointer(bp), INT(size))
 	return bs
 }

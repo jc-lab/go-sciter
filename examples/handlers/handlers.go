@@ -5,9 +5,9 @@ import (
 	"log"
 	"path/filepath"
 
-	"github.com/sciter-sdk/go-sciter"
-	"github.com/sciter-sdk/go-sciter/rice"
-	"github.com/sciter-sdk/go-sciter/window"
+	"github.com/jc-lab/go-sciter"
+	"github.com/jc-lab/go-sciter/rice"
+	"github.com/jc-lab/go-sciter/window"
 )
 
 func setEventHandler(w *window.Window) {
