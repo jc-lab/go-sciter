@@ -3,7 +3,9 @@ package window
 import (
 	"fmt"
 	"github.com/jc-lab/go-sciter"
+	"github.com/lxn/win"
 	"syscall"
+	"unsafe"
 )
 
 var (
@@ -35,11 +37,10 @@ func New(creationFlags sciter.WindowCreationFlag, rect *sciter.Rect) (*Window, e
 	return w, nil
 }
 
-//
-//func (s *Window) SetTitle(title string) {
-//	// message handling
-//	setWindowText.Call(uintptr(s.GetHwnd()), (uintptr)(unsafe.Pointer(sciter.StringToWcharPtr(title))))
-//}
+func (s *Window) SetTitle(title string) {
+	// message handling
+	setWindowText.Call(uintptr(s.GetHwnd()), (uintptr)(unsafe.Pointer(sciter.StringToWcharPtr(title))))
+}
 
 func (s *Window) AddQuitMenu() {
 	// Define behaviour for windows
