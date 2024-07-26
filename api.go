@@ -1,7 +1,7 @@
 package sciter
 
 import (
-	"syscall"
+	"github.com/ebitengine/purego"
 	"unsafe"
 )
 
@@ -247,14 +247,14 @@ type SciterAPI struct {
 }
 
 func (a *SciterAPI) SciterClassName() LPCWSTR {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterClassName,
 	)
 	return LPCWSTR(unsafe.Pointer(ret))
 }
 
 func (a *SciterAPI) SciterVersion(n UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterVersion,
 		uintptr(n),
 	)
@@ -262,7 +262,7 @@ func (a *SciterAPI) SciterVersion(n UINT) UINT {
 }
 
 func (a *SciterAPI) SciterDataReady(hwnd HWINDOW, uri LPCWSTR, data LPCBYTE, dataLength UINT) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterDataReady,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(uri)),
@@ -273,7 +273,7 @@ func (a *SciterAPI) SciterDataReady(hwnd HWINDOW, uri LPCWSTR, data LPCBYTE, dat
 }
 
 func (a *SciterAPI) SciterDataReadyAsync(hwnd HWINDOW, uri LPCWSTR, data LPCBYTE, dataLength UINT, requestId LPVOID) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterDataReadyAsync,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(uri)),
@@ -285,7 +285,7 @@ func (a *SciterAPI) SciterDataReadyAsync(hwnd HWINDOW, uri LPCWSTR, data LPCBYTE
 }
 
 func (a *SciterAPI) SciterProc(hwnd HWINDOW, msg UINT, wParam WPARAM, lParam LPARAM) LRESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterProc,
 		uintptr(hwnd),
 		uintptr(msg),
@@ -296,7 +296,7 @@ func (a *SciterAPI) SciterProc(hwnd HWINDOW, msg UINT, wParam WPARAM, lParam LPA
 }
 
 func (a *SciterAPI) SciterProcND(hwnd HWINDOW, msg UINT, wParam WPARAM, lParam LPARAM, pbHandled *SBOOL) LRESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterProcND,
 		uintptr(hwnd),
 		uintptr(msg),
@@ -308,7 +308,7 @@ func (a *SciterAPI) SciterProcND(hwnd HWINDOW, msg UINT, wParam WPARAM, lParam L
 }
 
 func (a *SciterAPI) SciterLoadFile(hWndSciter HWINDOW, filename LPCWSTR) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterLoadFile,
 		uintptr(hWndSciter),
 		uintptr(unsafe.Pointer(filename)),
@@ -317,7 +317,7 @@ func (a *SciterAPI) SciterLoadFile(hWndSciter HWINDOW, filename LPCWSTR) SBOOL {
 }
 
 func (a *SciterAPI) SciterLoadHtml(hWndSciter HWINDOW, html LPCBYTE, htmlSize UINT, baseUrl LPCWSTR) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterLoadHtml,
 		uintptr(hWndSciter),
 		uintptr(unsafe.Pointer(html)),
@@ -328,7 +328,7 @@ func (a *SciterAPI) SciterLoadHtml(hWndSciter HWINDOW, html LPCBYTE, htmlSize UI
 }
 
 func (a *SciterAPI) SciterSetCallback(hWndSciter HWINDOW, cb uintptr, cbParam LPVOID) {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetCallback,
 		uintptr(hWndSciter),
 		uintptr(cb),
@@ -338,7 +338,7 @@ func (a *SciterAPI) SciterSetCallback(hWndSciter HWINDOW, cb uintptr, cbParam LP
 }
 
 func (a *SciterAPI) SciterSetMasterCSS(utf8 LPCBYTE, numBytes UINT) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetMasterCSS,
 		uintptr(unsafe.Pointer(utf8)),
 		uintptr(numBytes),
@@ -347,7 +347,7 @@ func (a *SciterAPI) SciterSetMasterCSS(utf8 LPCBYTE, numBytes UINT) SBOOL {
 }
 
 func (a *SciterAPI) SciterAppendMasterCSS(utf8 LPCBYTE, numBytes UINT) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterAppendMasterCSS,
 		uintptr(unsafe.Pointer(utf8)),
 		uintptr(numBytes),
@@ -356,7 +356,7 @@ func (a *SciterAPI) SciterAppendMasterCSS(utf8 LPCBYTE, numBytes UINT) SBOOL {
 }
 
 func (a *SciterAPI) SciterSetCSS(hWndSciter HWINDOW, utf8 LPCBYTE, numBytes UINT, baseUrl LPCWSTR, mediaType LPCWSTR) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetCSS,
 		uintptr(hWndSciter),
 		uintptr(unsafe.Pointer(utf8)),
@@ -368,7 +368,7 @@ func (a *SciterAPI) SciterSetCSS(hWndSciter HWINDOW, utf8 LPCBYTE, numBytes UINT
 }
 
 func (a *SciterAPI) SciterSetMediaType(hWndSciter HWINDOW, mediaType LPCWSTR) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetMediaType,
 		uintptr(hWndSciter),
 		uintptr(unsafe.Pointer(mediaType)),
@@ -377,7 +377,7 @@ func (a *SciterAPI) SciterSetMediaType(hWndSciter HWINDOW, mediaType LPCWSTR) SB
 }
 
 func (a *SciterAPI) SciterSetMediaVars(hWndSciter HWINDOW) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetMediaVars,
 		uintptr(hWndSciter),
 	)
@@ -385,7 +385,7 @@ func (a *SciterAPI) SciterSetMediaVars(hWndSciter HWINDOW) SBOOL {
 }
 
 func (a *SciterAPI) SciterGetMinWidth(hWndSciter HWINDOW) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetMinWidth,
 		uintptr(hWndSciter),
 	)
@@ -393,7 +393,7 @@ func (a *SciterAPI) SciterGetMinWidth(hWndSciter HWINDOW) UINT {
 }
 
 func (a *SciterAPI) SciterGetMinHeight(hWndSciter HWINDOW, width UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetMinHeight,
 		uintptr(hWndSciter),
 		uintptr(width),
@@ -402,7 +402,7 @@ func (a *SciterAPI) SciterGetMinHeight(hWndSciter HWINDOW, width UINT) UINT {
 }
 
 func (a *SciterAPI) SciterCall(hWnd HWINDOW, functionName LPCSTR, argc UINT /* const */, argv *SCITER_VALUE, retval *SCITER_VALUE) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCall,
 		uintptr(hWnd),
 		uintptr(unsafe.Pointer(functionName)),
@@ -414,7 +414,7 @@ func (a *SciterAPI) SciterCall(hWnd HWINDOW, functionName LPCSTR, argc UINT /* c
 }
 
 func (a *SciterAPI) SciterEval(hwnd HWINDOW, script LPCWSTR, scriptLength UINT, pretval *SCITER_VALUE) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterEval,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(script)),
@@ -425,7 +425,7 @@ func (a *SciterAPI) SciterEval(hwnd HWINDOW, script LPCWSTR, scriptLength UINT, 
 }
 
 func (a *SciterAPI) SciterUpdateWindow(hwnd HWINDOW) {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterUpdateWindow,
 		uintptr(hwnd),
 	)
@@ -433,7 +433,7 @@ func (a *SciterAPI) SciterUpdateWindow(hwnd HWINDOW) {
 }
 
 func (a *SciterAPI) SciterTranslateMessage(lpMsg *MSG) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterTranslateMessage,
 		uintptr(unsafe.Pointer(lpMsg)),
 	)
@@ -441,7 +441,7 @@ func (a *SciterAPI) SciterTranslateMessage(lpMsg *MSG) SBOOL {
 }
 
 func (a *SciterAPI) SciterSetOption(hWnd HWINDOW, option UINT, value UINT_PTR) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetOption,
 		uintptr(hWnd),
 		uintptr(option),
@@ -451,7 +451,7 @@ func (a *SciterAPI) SciterSetOption(hWnd HWINDOW, option UINT, value UINT_PTR) S
 }
 
 func (a *SciterAPI) SciterGetPPI(hWndSciter HWINDOW, px *UINT, py *UINT) {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetPPI,
 		uintptr(hWndSciter),
 		uintptr(unsafe.Pointer(px)),
@@ -461,7 +461,7 @@ func (a *SciterAPI) SciterGetPPI(hWndSciter HWINDOW, px *UINT, py *UINT) {
 }
 
 func (a *SciterAPI) SciterGetViewExpando(hwnd HWINDOW, pval *Value) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetViewExpando,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(pval)),
@@ -470,7 +470,7 @@ func (a *SciterAPI) SciterGetViewExpando(hwnd HWINDOW, pval *Value) SBOOL {
 }
 
 func (a *SciterAPI) SciterRenderD2D(hWndSciter HWINDOW, prt *IUnknown /*ID2D1RenderTarget**/) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterRenderD2D,
 		uintptr(hWndSciter),
 		uintptr(unsafe.Pointer(prt)),
@@ -479,7 +479,7 @@ func (a *SciterAPI) SciterRenderD2D(hWndSciter HWINDOW, prt *IUnknown /*ID2D1Ren
 }
 
 func (a *SciterAPI) SciterD2DFactory(ppf **IUnknown /*ID2D1Factory ***/) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterD2DFactory,
 		uintptr(unsafe.Pointer(ppf)),
 	)
@@ -487,7 +487,7 @@ func (a *SciterAPI) SciterD2DFactory(ppf **IUnknown /*ID2D1Factory ***/) SBOOL {
 }
 
 func (a *SciterAPI) SciterDWFactory(ppf **IUnknown /*IDWriteFactory ***/) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterDWFactory,
 		uintptr(unsafe.Pointer(ppf)),
 	)
@@ -495,7 +495,7 @@ func (a *SciterAPI) SciterDWFactory(ppf **IUnknown /*IDWriteFactory ***/) SBOOL 
 }
 
 func (a *SciterAPI) SciterGraphicsCaps(pcaps LPUINT) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGraphicsCaps,
 		uintptr(unsafe.Pointer(pcaps)),
 	)
@@ -503,7 +503,7 @@ func (a *SciterAPI) SciterGraphicsCaps(pcaps LPUINT) SBOOL {
 }
 
 func (a *SciterAPI) SciterSetHomeURL(hWndSciter HWINDOW, baseUrl LPCWSTR) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetHomeURL,
 		uintptr(hWndSciter),
 		uintptr(unsafe.Pointer(baseUrl)),
@@ -512,7 +512,7 @@ func (a *SciterAPI) SciterSetHomeURL(hWndSciter HWINDOW, baseUrl LPCWSTR) SBOOL 
 }
 
 func (a *SciterAPI) SciterCreateNSView(frame *Rect) HWINDOW {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCreateNSView,
 		uintptr(unsafe.Pointer(frame)),
 	)
@@ -520,7 +520,7 @@ func (a *SciterAPI) SciterCreateNSView(frame *Rect) HWINDOW {
 }
 
 func (a *SciterAPI) SciterCreateWidget(frame *Rect) HWINDOW {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCreateWidget,
 		uintptr(unsafe.Pointer(frame)),
 	)
@@ -528,7 +528,7 @@ func (a *SciterAPI) SciterCreateWidget(frame *Rect) HWINDOW {
 }
 
 func (a *SciterAPI) SciterCreateWindow(creationFlags UINT, frame *Rect, delegate uintptr, delegateParam uintptr, parent HWINDOW) HWINDOW {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCreateWindow,
 		uintptr(creationFlags),
 		uintptr(unsafe.Pointer(frame)),
@@ -540,7 +540,7 @@ func (a *SciterAPI) SciterCreateWindow(creationFlags UINT, frame *Rect, delegate
 }
 
 func (a *SciterAPI) SciterSetupDebugOutput(hwndOrNull HWINDOW) {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetupDebugOutput,
 		uintptr(hwndOrNull),
 	)
@@ -548,7 +548,7 @@ func (a *SciterAPI) SciterSetupDebugOutput(hwndOrNull HWINDOW) {
 }
 
 func (a *SciterAPI) Sciter_UseElement(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciter_UseElement,
 		uintptr(he),
 	)
@@ -556,7 +556,7 @@ func (a *SciterAPI) Sciter_UseElement(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) Sciter_UnuseElement(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciter_UnuseElement,
 		uintptr(he),
 	)
@@ -564,7 +564,7 @@ func (a *SciterAPI) Sciter_UnuseElement(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterGetRootElement(hwnd HWINDOW, phe *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetRootElement,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(phe)),
@@ -573,7 +573,7 @@ func (a *SciterAPI) SciterGetRootElement(hwnd HWINDOW, phe *HELEMENT) SCDOM_RESU
 }
 
 func (a *SciterAPI) SciterGetFocusElement(hwnd HWINDOW, phe *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetFocusElement,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(phe)),
@@ -582,7 +582,7 @@ func (a *SciterAPI) SciterGetFocusElement(hwnd HWINDOW, phe *HELEMENT) SCDOM_RES
 }
 
 func (a *SciterAPI) SciterGetChildrenCount(he HELEMENT, count *UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetChildrenCount,
 		uintptr(he),
 		uintptr(unsafe.Pointer(count)),
@@ -591,7 +591,7 @@ func (a *SciterAPI) SciterGetChildrenCount(he HELEMENT, count *UINT) SCDOM_RESUL
 }
 
 func (a *SciterAPI) SciterGetNthChild(he HELEMENT, n UINT, phe *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetNthChild,
 		uintptr(he),
 		uintptr(n),
@@ -601,7 +601,7 @@ func (a *SciterAPI) SciterGetNthChild(he HELEMENT, n UINT, phe *HELEMENT) SCDOM_
 }
 
 func (a *SciterAPI) SciterGetParentElement(he HELEMENT, p_parent_he *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetParentElement,
 		uintptr(he),
 		uintptr(unsafe.Pointer(p_parent_he)),
@@ -610,7 +610,7 @@ func (a *SciterAPI) SciterGetParentElement(he HELEMENT, p_parent_he *HELEMENT) S
 }
 
 func (a *SciterAPI) SciterGetElementHtmlCB(he HELEMENT, outer SBOOL, rcv uintptr, rcv_param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementHtmlCB,
 		uintptr(he),
 		uintptr(outer),
@@ -621,7 +621,7 @@ func (a *SciterAPI) SciterGetElementHtmlCB(he HELEMENT, outer SBOOL, rcv uintptr
 }
 
 func (a *SciterAPI) SciterGetElementTextCB(he HELEMENT, rcv uintptr, rcv_param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementTextCB,
 		uintptr(he),
 		uintptr(rcv),
@@ -631,7 +631,7 @@ func (a *SciterAPI) SciterGetElementTextCB(he HELEMENT, rcv uintptr, rcv_param L
 }
 
 func (a *SciterAPI) SciterSetElementText(he HELEMENT, utf16 LPCWSTR, length UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetElementText,
 		uintptr(he),
 		uintptr(unsafe.Pointer(utf16)),
@@ -641,7 +641,7 @@ func (a *SciterAPI) SciterSetElementText(he HELEMENT, utf16 LPCWSTR, length UINT
 }
 
 func (a *SciterAPI) SciterGetAttributeCount(he HELEMENT, p_count LPUINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetAttributeCount,
 		uintptr(he),
 		uintptr(unsafe.Pointer(p_count)),
@@ -650,7 +650,7 @@ func (a *SciterAPI) SciterGetAttributeCount(he HELEMENT, p_count LPUINT) SCDOM_R
 }
 
 func (a *SciterAPI) SciterGetNthAttributeNameCB(he HELEMENT, n UINT, rcv uintptr, rcv_param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetNthAttributeNameCB,
 		uintptr(he),
 		uintptr(n),
@@ -661,7 +661,7 @@ func (a *SciterAPI) SciterGetNthAttributeNameCB(he HELEMENT, n UINT, rcv uintptr
 }
 
 func (a *SciterAPI) SciterGetNthAttributeValueCB(he HELEMENT, n UINT, rcv uintptr, rcv_param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetNthAttributeValueCB,
 		uintptr(he),
 		uintptr(n),
@@ -672,7 +672,7 @@ func (a *SciterAPI) SciterGetNthAttributeValueCB(he HELEMENT, n UINT, rcv uintpt
 }
 
 func (a *SciterAPI) SciterGetAttributeByNameCB(he HELEMENT, name LPCSTR, rcv uintptr, rcv_param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetAttributeByNameCB,
 		uintptr(he),
 		uintptr(unsafe.Pointer(name)),
@@ -683,7 +683,7 @@ func (a *SciterAPI) SciterGetAttributeByNameCB(he HELEMENT, name LPCSTR, rcv uin
 }
 
 func (a *SciterAPI) SciterSetAttributeByName(he HELEMENT, name LPCSTR, value LPCWSTR) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetAttributeByName,
 		uintptr(he),
 		uintptr(unsafe.Pointer(name)),
@@ -693,7 +693,7 @@ func (a *SciterAPI) SciterSetAttributeByName(he HELEMENT, name LPCSTR, value LPC
 }
 
 func (a *SciterAPI) SciterClearAttributes(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterClearAttributes,
 		uintptr(he),
 	)
@@ -701,7 +701,7 @@ func (a *SciterAPI) SciterClearAttributes(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterGetElementIndex(he HELEMENT, p_index LPUINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementIndex,
 		uintptr(he),
 		uintptr(unsafe.Pointer(p_index)),
@@ -710,7 +710,7 @@ func (a *SciterAPI) SciterGetElementIndex(he HELEMENT, p_index LPUINT) SCDOM_RES
 }
 
 func (a *SciterAPI) SciterGetElementType(he HELEMENT, p_type *LPCSTR) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementType,
 		uintptr(he),
 		uintptr(unsafe.Pointer(p_type)),
@@ -719,7 +719,7 @@ func (a *SciterAPI) SciterGetElementType(he HELEMENT, p_type *LPCSTR) SCDOM_RESU
 }
 
 func (a *SciterAPI) SciterGetElementTypeCB(he HELEMENT, rcv uintptr, rcv_param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementTypeCB,
 		uintptr(he),
 		uintptr(unsafe.Pointer(rcv)),
@@ -729,7 +729,7 @@ func (a *SciterAPI) SciterGetElementTypeCB(he HELEMENT, rcv uintptr, rcv_param L
 }
 
 func (a *SciterAPI) SciterGetStyleAttributeCB(he HELEMENT, name LPCSTR, rcv uintptr, rcv_param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetStyleAttributeCB,
 		uintptr(he),
 		uintptr(unsafe.Pointer(name)),
@@ -740,7 +740,7 @@ func (a *SciterAPI) SciterGetStyleAttributeCB(he HELEMENT, name LPCSTR, rcv uint
 }
 
 func (a *SciterAPI) SciterSetStyleAttribute(he HELEMENT, name LPCSTR, value LPCWSTR) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetStyleAttribute,
 		uintptr(he),
 		uintptr(unsafe.Pointer(name)),
@@ -750,7 +750,7 @@ func (a *SciterAPI) SciterSetStyleAttribute(he HELEMENT, name LPCSTR, value LPCW
 }
 
 func (a *SciterAPI) SciterGetElementLocation(he HELEMENT, p_location *Rect) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementLocation,
 		uintptr(he),
 		uintptr(unsafe.Pointer(p_location)),
@@ -759,7 +759,7 @@ func (a *SciterAPI) SciterGetElementLocation(he HELEMENT, p_location *Rect) SCDO
 }
 
 func (a *SciterAPI) SciterScrollToView(he HELEMENT, SciterScrollFlags UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterScrollToView,
 		uintptr(he),
 		uintptr(SciterScrollFlags),
@@ -768,7 +768,7 @@ func (a *SciterAPI) SciterScrollToView(he HELEMENT, SciterScrollFlags UINT) SCDO
 }
 
 func (a *SciterAPI) SciterUpdateElement(he HELEMENT, andForceRender SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterUpdateElement,
 		uintptr(he),
 		uintptr(andForceRender),
@@ -777,7 +777,7 @@ func (a *SciterAPI) SciterUpdateElement(he HELEMENT, andForceRender SBOOL) SCDOM
 }
 
 func (a *SciterAPI) SciterSetCapture(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetCapture,
 		uintptr(he),
 	)
@@ -785,7 +785,7 @@ func (a *SciterAPI) SciterSetCapture(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterReleaseCapture(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterReleaseCapture,
 		uintptr(he),
 	)
@@ -793,7 +793,7 @@ func (a *SciterAPI) SciterReleaseCapture(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterGetElementHwnd(he HELEMENT, p_hwnd *HWINDOW, rootWindow SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementHwnd,
 		uintptr(he),
 		uintptr(unsafe.Pointer(p_hwnd)),
@@ -803,7 +803,7 @@ func (a *SciterAPI) SciterGetElementHwnd(he HELEMENT, p_hwnd *HWINDOW, rootWindo
 }
 
 func (a *SciterAPI) SciterCombineURL(he HELEMENT, szUrlBuffer LPWSTR, UrlBufferSize UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCombineURL,
 		uintptr(he),
 		uintptr(unsafe.Pointer(szUrlBuffer)),
@@ -813,7 +813,7 @@ func (a *SciterAPI) SciterCombineURL(he HELEMENT, szUrlBuffer LPWSTR, UrlBufferS
 }
 
 func (a *SciterAPI) SciterSelectElements(he HELEMENT, CSS_selectors LPCSTR, callback uintptr, param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSelectElements,
 		uintptr(he),
 		uintptr(unsafe.Pointer(CSS_selectors)),
@@ -824,7 +824,7 @@ func (a *SciterAPI) SciterSelectElements(he HELEMENT, CSS_selectors LPCSTR, call
 }
 
 func (a *SciterAPI) SciterSelectElementsW(he HELEMENT, CSS_selectors LPCWSTR, callback uintptr, param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSelectElementsW,
 		uintptr(he),
 		uintptr(unsafe.Pointer(CSS_selectors)),
@@ -835,7 +835,7 @@ func (a *SciterAPI) SciterSelectElementsW(he HELEMENT, CSS_selectors LPCWSTR, ca
 }
 
 func (a *SciterAPI) SciterSelectParent(he HELEMENT, selector LPCSTR, depth UINT, heFound *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSelectParent,
 		uintptr(he),
 		uintptr(unsafe.Pointer(selector)),
@@ -846,7 +846,7 @@ func (a *SciterAPI) SciterSelectParent(he HELEMENT, selector LPCSTR, depth UINT,
 }
 
 func (a *SciterAPI) SciterSelectParentW(he HELEMENT, selector LPCWSTR, depth UINT, heFound *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSelectParentW,
 		uintptr(he),
 		uintptr(unsafe.Pointer(selector)),
@@ -857,7 +857,7 @@ func (a *SciterAPI) SciterSelectParentW(he HELEMENT, selector LPCWSTR, depth UIN
 }
 
 func (a *SciterAPI) SciterSetElementHtml(he HELEMENT /* const */, html *BYTE, htmlLength UINT, where UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetElementHtml,
 		uintptr(he),
 		uintptr(unsafe.Pointer(html)),
@@ -868,7 +868,7 @@ func (a *SciterAPI) SciterSetElementHtml(he HELEMENT /* const */, html *BYTE, ht
 }
 
 func (a *SciterAPI) SciterGetElementUID(he HELEMENT, puid *UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementUID,
 		uintptr(he),
 		uintptr(unsafe.Pointer(puid)),
@@ -877,7 +877,7 @@ func (a *SciterAPI) SciterGetElementUID(he HELEMENT, puid *UINT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterGetElementByUID(hwnd HWINDOW, uid UINT, phe *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementByUID,
 		uintptr(hwnd),
 		uintptr(uid),
@@ -887,7 +887,7 @@ func (a *SciterAPI) SciterGetElementByUID(hwnd HWINDOW, uid UINT, phe *HELEMENT)
 }
 
 func (a *SciterAPI) SciterShowPopup(hePopup HELEMENT, heAnchor HELEMENT, placement UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterShowPopup,
 		uintptr(hePopup),
 		uintptr(heAnchor),
@@ -897,7 +897,7 @@ func (a *SciterAPI) SciterShowPopup(hePopup HELEMENT, heAnchor HELEMENT, placeme
 }
 
 func (a *SciterAPI) SciterHidePopup(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterHidePopup,
 		uintptr(he),
 	)
@@ -905,7 +905,7 @@ func (a *SciterAPI) SciterHidePopup(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterGetElementState(he HELEMENT, pstateBits *UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementState,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pstateBits)),
@@ -914,7 +914,7 @@ func (a *SciterAPI) SciterGetElementState(he HELEMENT, pstateBits *UINT) SCDOM_R
 }
 
 func (a *SciterAPI) SciterSetElementState(he HELEMENT, stateBitsToSet UINT, stateBitsToClear UINT, updateView SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetElementState,
 		uintptr(he),
 		uintptr(stateBitsToSet),
@@ -925,7 +925,7 @@ func (a *SciterAPI) SciterSetElementState(he HELEMENT, stateBitsToSet UINT, stat
 }
 
 func (a *SciterAPI) SciterCreateElement(tagname LPCSTR, textOrNull LPCWSTR, phe *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCreateElement,
 		uintptr(unsafe.Pointer(tagname)),
 		uintptr(unsafe.Pointer(textOrNull)),
@@ -935,7 +935,7 @@ func (a *SciterAPI) SciterCreateElement(tagname LPCSTR, textOrNull LPCWSTR, phe 
 }
 
 func (a *SciterAPI) SciterCloneElement(he HELEMENT, phe *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCloneElement,
 		uintptr(he),
 		uintptr(unsafe.Pointer(phe)),
@@ -944,7 +944,7 @@ func (a *SciterAPI) SciterCloneElement(he HELEMENT, phe *HELEMENT) SCDOM_RESULT 
 }
 
 func (a *SciterAPI) SciterInsertElement(he HELEMENT, hparent HELEMENT, index UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterInsertElement,
 		uintptr(he),
 		uintptr(hparent),
@@ -954,7 +954,7 @@ func (a *SciterAPI) SciterInsertElement(he HELEMENT, hparent HELEMENT, index UIN
 }
 
 func (a *SciterAPI) SciterDetachElement(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterDetachElement,
 		uintptr(he),
 	)
@@ -962,7 +962,7 @@ func (a *SciterAPI) SciterDetachElement(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterDeleteElement(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterDeleteElement,
 		uintptr(he),
 	)
@@ -970,7 +970,7 @@ func (a *SciterAPI) SciterDeleteElement(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterSetTimer(he HELEMENT, milliseconds UINT, timer_id UINT_PTR) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetTimer,
 		uintptr(he),
 		uintptr(milliseconds),
@@ -980,7 +980,7 @@ func (a *SciterAPI) SciterSetTimer(he HELEMENT, milliseconds UINT, timer_id UINT
 }
 
 func (a *SciterAPI) SciterDetachEventHandler(he HELEMENT, pep uintptr, tag LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterDetachEventHandler,
 		uintptr(he),
 		uintptr(pep),
@@ -990,7 +990,7 @@ func (a *SciterAPI) SciterDetachEventHandler(he HELEMENT, pep uintptr, tag LPVOI
 }
 
 func (a *SciterAPI) SciterAttachEventHandler(he HELEMENT, pep uintptr, tag LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterAttachEventHandler,
 		uintptr(he),
 		uintptr(pep),
@@ -1000,7 +1000,7 @@ func (a *SciterAPI) SciterAttachEventHandler(he HELEMENT, pep uintptr, tag LPVOI
 }
 
 func (a *SciterAPI) SciterWindowAttachEventHandler(hwndLayout HWINDOW, pep uintptr, tag LPVOID, subscription UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterWindowAttachEventHandler,
 		uintptr(hwndLayout),
 		uintptr(pep),
@@ -1011,7 +1011,7 @@ func (a *SciterAPI) SciterWindowAttachEventHandler(hwndLayout HWINDOW, pep uintp
 }
 
 func (a *SciterAPI) SciterWindowDetachEventHandler(hwndLayout HWINDOW, pep uintptr, tag LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterWindowDetachEventHandler,
 		uintptr(hwndLayout),
 		uintptr(pep),
@@ -1021,7 +1021,7 @@ func (a *SciterAPI) SciterWindowDetachEventHandler(hwndLayout HWINDOW, pep uintp
 }
 
 func (a *SciterAPI) SciterSendEvent(he HELEMENT, appEventCode UINT, heSource HELEMENT, reason UINT_PTR) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSendEvent,
 		uintptr(he),
 		uintptr(appEventCode),
@@ -1032,7 +1032,7 @@ func (a *SciterAPI) SciterSendEvent(he HELEMENT, appEventCode UINT, heSource HEL
 }
 
 func (a *SciterAPI) SciterPostEvent(he HELEMENT, appEventCode UINT, heSource HELEMENT, reason UINT_PTR) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterPostEvent,
 		uintptr(he),
 		uintptr(appEventCode),
@@ -1043,7 +1043,7 @@ func (a *SciterAPI) SciterPostEvent(he HELEMENT, appEventCode UINT, heSource HEL
 }
 
 func (a *SciterAPI) SciterCallBehaviorMethod(he HELEMENT, params *METHOD_PARAMS) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCallBehaviorMethod,
 		uintptr(he),
 		uintptr(unsafe.Pointer(params)),
@@ -1052,7 +1052,7 @@ func (a *SciterAPI) SciterCallBehaviorMethod(he HELEMENT, params *METHOD_PARAMS)
 }
 
 func (a *SciterAPI) SciterRequestElementData(he HELEMENT, url LPCWSTR, dataType UINT, initiator HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterRequestElementData,
 		uintptr(he),
 		uintptr(unsafe.Pointer(url)),
@@ -1070,7 +1070,7 @@ func (a *SciterAPI) SciterHttpRequest(
 	requestParams *REQUEST_PARAM, // parameters
 	nParams UINT, // number of paramters
 ) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterHttpRequest,
 		uintptr(he),
 		uintptr(requestType),
@@ -1079,7 +1079,7 @@ func (a *SciterAPI) SciterHttpRequest(
 }
 
 func (a *SciterAPI) SciterGetScrollInfo(he HELEMENT, scrollPos LPPOINT, viewRect *Rect, contentSize LPSIZE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetScrollInfo,
 		uintptr(he),
 		uintptr(unsafe.Pointer(scrollPos)),
@@ -1090,7 +1090,7 @@ func (a *SciterAPI) SciterGetScrollInfo(he HELEMENT, scrollPos LPPOINT, viewRect
 }
 
 func (a *SciterAPI) SciterGetElementIntrinsicWidths(he HELEMENT, pMinWidth *INT, pMaxWidth *INT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementIntrinsicWidths,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pMinWidth)),
@@ -1100,7 +1100,7 @@ func (a *SciterAPI) SciterGetElementIntrinsicWidths(he HELEMENT, pMinWidth *INT,
 }
 
 func (a *SciterAPI) SciterGetElementIntrinsicHeight(he HELEMENT, forWidth INT, pHeight *INT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementIntrinsicHeight,
 		uintptr(he),
 		uintptr(forWidth),
@@ -1110,7 +1110,7 @@ func (a *SciterAPI) SciterGetElementIntrinsicHeight(he HELEMENT, forWidth INT, p
 }
 
 func (a *SciterAPI) SciterIsElementVisible(he HELEMENT, pVisible *SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterIsElementVisible,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pVisible)),
@@ -1119,7 +1119,7 @@ func (a *SciterAPI) SciterIsElementVisible(he HELEMENT, pVisible *SBOOL) SCDOM_R
 }
 
 func (a *SciterAPI) SciterIsElementEnabled(he HELEMENT, pEnabled *SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterIsElementEnabled,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pEnabled)),
@@ -1128,7 +1128,7 @@ func (a *SciterAPI) SciterIsElementEnabled(he HELEMENT, pEnabled *SBOOL) SCDOM_R
 }
 
 func (a *SciterAPI) SciterSortElements(he HELEMENT, firstIndex UINT, lastIndex UINT, cmpFunc uintptr, cmpFuncParam LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSortElements,
 		uintptr(he),
 		uintptr(firstIndex),
@@ -1140,7 +1140,7 @@ func (a *SciterAPI) SciterSortElements(he HELEMENT, firstIndex UINT, lastIndex U
 }
 
 func (a *SciterAPI) SciterSwapElements(he1 HELEMENT, he2 HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSwapElements,
 		uintptr(he1),
 		uintptr(he2),
@@ -1149,7 +1149,7 @@ func (a *SciterAPI) SciterSwapElements(he1 HELEMENT, he2 HELEMENT) SCDOM_RESULT 
 }
 
 func (a *SciterAPI) SciterTraverseUIEvent(evt UINT, eventCtlStruct LPVOID, bOutProcessed *SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterTraverseUIEvent,
 		uintptr(evt),
 		uintptr(unsafe.Pointer(eventCtlStruct)),
@@ -1159,7 +1159,7 @@ func (a *SciterAPI) SciterTraverseUIEvent(evt UINT, eventCtlStruct LPVOID, bOutP
 }
 
 func (a *SciterAPI) SciterCallScriptingMethod(he HELEMENT, name LPCSTR /* const */, argv *Value, argc UINT, retval *Value) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCallScriptingMethod,
 		uintptr(he),
 		uintptr(unsafe.Pointer(name)),
@@ -1171,7 +1171,7 @@ func (a *SciterAPI) SciterCallScriptingMethod(he HELEMENT, name LPCSTR /* const 
 }
 
 func (a *SciterAPI) SciterCallScriptingFunction(he HELEMENT, name LPCSTR /* const */, argv *Value, argc UINT, retval *Value) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCallScriptingFunction,
 		uintptr(he),
 		uintptr(unsafe.Pointer(name)),
@@ -1183,7 +1183,7 @@ func (a *SciterAPI) SciterCallScriptingFunction(he HELEMENT, name LPCSTR /* cons
 }
 
 func (a *SciterAPI) SciterEvalElementScript(he HELEMENT, script LPCWSTR, scriptLength UINT, retval *Value) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterEvalElementScript,
 		uintptr(he),
 		uintptr(unsafe.Pointer(script)),
@@ -1194,7 +1194,7 @@ func (a *SciterAPI) SciterEvalElementScript(he HELEMENT, script LPCWSTR, scriptL
 }
 
 func (a *SciterAPI) SciterAttachHwndToElement(he HELEMENT, hwnd HWINDOW) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterAttachHwndToElement,
 		uintptr(he),
 		uintptr(hwnd),
@@ -1203,7 +1203,7 @@ func (a *SciterAPI) SciterAttachHwndToElement(he HELEMENT, hwnd HWINDOW) SCDOM_R
 }
 
 func (a *SciterAPI) SciterControlGetType(he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterControlGetType,
 		uintptr(he),
 	)
@@ -1211,7 +1211,7 @@ func (a *SciterAPI) SciterControlGetType(he HELEMENT) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterGetValue(he HELEMENT, pval *Value) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetValue,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pval)),
@@ -1220,7 +1220,7 @@ func (a *SciterAPI) SciterGetValue(he HELEMENT, pval *Value) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterSetValue(he HELEMENT /* const */, pval *Value) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetValue,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pval)),
@@ -1229,7 +1229,7 @@ func (a *SciterAPI) SciterSetValue(he HELEMENT /* const */, pval *Value) SCDOM_R
 }
 
 func (a *SciterAPI) SciterGetExpando(he HELEMENT, pval *Value, forceCreation SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetExpando,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pval)),
@@ -1239,7 +1239,7 @@ func (a *SciterAPI) SciterGetExpando(he HELEMENT, pval *Value, forceCreation SBO
 }
 
 func (a *SciterAPI) SciterGetObject(he HELEMENT, pval *interface{}, forceCreation SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetObject,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pval)),
@@ -1249,7 +1249,7 @@ func (a *SciterAPI) SciterGetObject(he HELEMENT, pval *interface{}, forceCreatio
 }
 
 func (a *SciterAPI) SciterGetElementNamespace(he HELEMENT, pval *interface{}) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementNamespace,
 		uintptr(he),
 		uintptr(unsafe.Pointer(pval)),
@@ -1258,7 +1258,7 @@ func (a *SciterAPI) SciterGetElementNamespace(he HELEMENT, pval *interface{}) SC
 }
 
 func (a *SciterAPI) SciterGetHighlightedElement(hwnd HWINDOW, phe *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetHighlightedElement,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(phe)),
@@ -1267,7 +1267,7 @@ func (a *SciterAPI) SciterGetHighlightedElement(hwnd HWINDOW, phe *HELEMENT) SCD
 }
 
 func (a *SciterAPI) SciterSetHighlightedElement(hwnd HWINDOW, he HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetHighlightedElement,
 		uintptr(hwnd),
 		uintptr(he),
@@ -1276,7 +1276,7 @@ func (a *SciterAPI) SciterSetHighlightedElement(hwnd HWINDOW, he HELEMENT) SCDOM
 }
 
 func (a *SciterAPI) SciterNodeAddRef(hn HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeAddRef,
 		uintptr(hn),
 	)
@@ -1284,7 +1284,7 @@ func (a *SciterAPI) SciterNodeAddRef(hn HNODE) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterNodeRelease(hn HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeRelease,
 		uintptr(hn),
 	)
@@ -1292,7 +1292,7 @@ func (a *SciterAPI) SciterNodeRelease(hn HNODE) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterNodeCastFromElement(he HELEMENT, phn *HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeCastFromElement,
 		uintptr(he),
 		uintptr(unsafe.Pointer(phn)),
@@ -1301,7 +1301,7 @@ func (a *SciterAPI) SciterNodeCastFromElement(he HELEMENT, phn *HNODE) SCDOM_RES
 }
 
 func (a *SciterAPI) SciterNodeCastToElement(hn HNODE, he *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeCastToElement,
 		uintptr(hn),
 		uintptr(unsafe.Pointer(he)),
@@ -1310,7 +1310,7 @@ func (a *SciterAPI) SciterNodeCastToElement(hn HNODE, he *HELEMENT) SCDOM_RESULT
 }
 
 func (a *SciterAPI) SciterNodeFirstChild(hn HNODE, phn *HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeFirstChild,
 		uintptr(hn),
 		uintptr(unsafe.Pointer(phn)),
@@ -1319,7 +1319,7 @@ func (a *SciterAPI) SciterNodeFirstChild(hn HNODE, phn *HNODE) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterNodeLastChild(hn HNODE, phn *HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeLastChild,
 		uintptr(hn),
 		uintptr(unsafe.Pointer(phn)),
@@ -1328,7 +1328,7 @@ func (a *SciterAPI) SciterNodeLastChild(hn HNODE, phn *HNODE) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterNodeNextSibling(hn HNODE, phn *HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeNextSibling,
 		uintptr(hn),
 		uintptr(unsafe.Pointer(phn)),
@@ -1337,7 +1337,7 @@ func (a *SciterAPI) SciterNodeNextSibling(hn HNODE, phn *HNODE) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterNodePrevSibling(hn HNODE, phn *HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodePrevSibling,
 		uintptr(hn),
 		uintptr(unsafe.Pointer(phn)),
@@ -1346,7 +1346,7 @@ func (a *SciterAPI) SciterNodePrevSibling(hn HNODE, phn *HNODE) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterNodeParent(hnode HNODE, pheParent *HELEMENT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeParent,
 		uintptr(hnode),
 		uintptr(unsafe.Pointer(pheParent)),
@@ -1355,7 +1355,7 @@ func (a *SciterAPI) SciterNodeParent(hnode HNODE, pheParent *HELEMENT) SCDOM_RES
 }
 
 func (a *SciterAPI) SciterNodeNthChild(hnode HNODE, n UINT, phn *HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeNthChild,
 		uintptr(hnode),
 		uintptr(n),
@@ -1365,7 +1365,7 @@ func (a *SciterAPI) SciterNodeNthChild(hnode HNODE, n UINT, phn *HNODE) SCDOM_RE
 }
 
 func (a *SciterAPI) SciterNodeChildrenCount(hnode HNODE, pn *UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeChildrenCount,
 		uintptr(hnode),
 		uintptr(unsafe.Pointer(pn)),
@@ -1374,7 +1374,7 @@ func (a *SciterAPI) SciterNodeChildrenCount(hnode HNODE, pn *UINT) SCDOM_RESULT 
 }
 
 func (a *SciterAPI) SciterNodeType(hnode HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeType,
 		uintptr(hnode),
 	)
@@ -1382,7 +1382,7 @@ func (a *SciterAPI) SciterNodeType(hnode HNODE) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterNodeGetText(hnode HNODE, rcv uintptr, rcv_param LPVOID) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeGetText,
 		uintptr(hnode),
 		uintptr(rcv),
@@ -1392,7 +1392,7 @@ func (a *SciterAPI) SciterNodeGetText(hnode HNODE, rcv uintptr, rcv_param LPVOID
 }
 
 func (a *SciterAPI) SciterNodeSetText(hnode HNODE, text LPCWSTR, textLength UINT) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeSetText,
 		uintptr(hnode),
 		uintptr(unsafe.Pointer(text)),
@@ -1402,7 +1402,7 @@ func (a *SciterAPI) SciterNodeSetText(hnode HNODE, text LPCWSTR, textLength UINT
 }
 
 func (a *SciterAPI) SciterNodeInsert(hnode HNODE, what HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeInsert,
 		uintptr(hnode),
 		uintptr(what),
@@ -1411,7 +1411,7 @@ func (a *SciterAPI) SciterNodeInsert(hnode HNODE, what HNODE) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterNodeRemove(hnode HNODE, finalize SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeRemove,
 		uintptr(hnode),
 		uintptr(finalize),
@@ -1420,7 +1420,7 @@ func (a *SciterAPI) SciterNodeRemove(hnode HNODE, finalize SBOOL) SCDOM_RESULT {
 }
 
 func (a *SciterAPI) SciterCreateTextNode(text LPCWSTR, textLength UINT, phnode *HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCreateTextNode,
 		uintptr(unsafe.Pointer(text)),
 		uintptr(textLength),
@@ -1430,7 +1430,7 @@ func (a *SciterAPI) SciterCreateTextNode(text LPCWSTR, textLength UINT, phnode *
 }
 
 func (a *SciterAPI) SciterCreateCommentNode(text LPCWSTR, textLength UINT, phnode *HNODE) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCreateCommentNode,
 		uintptr(unsafe.Pointer(text)),
 		uintptr(textLength),
@@ -1440,7 +1440,7 @@ func (a *SciterAPI) SciterCreateCommentNode(text LPCWSTR, textLength UINT, phnod
 }
 
 func (a *SciterAPI) ValueInit(pval *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueInit,
 		uintptr(unsafe.Pointer(pval)),
 	)
@@ -1448,7 +1448,7 @@ func (a *SciterAPI) ValueInit(pval *Value) UINT {
 }
 
 func (a *SciterAPI) ValueClear(pval *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueClear,
 		uintptr(unsafe.Pointer(pval)),
 	)
@@ -1456,7 +1456,7 @@ func (a *SciterAPI) ValueClear(pval *Value) UINT {
 }
 
 func (a *SciterAPI) ValueCompare( /* const */ pval1 *Value /* const */, pval2 *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueCompare,
 		uintptr(unsafe.Pointer(pval1)),
 		uintptr(unsafe.Pointer(pval2)),
@@ -1465,7 +1465,7 @@ func (a *SciterAPI) ValueCompare( /* const */ pval1 *Value /* const */, pval2 *V
 }
 
 func (a *SciterAPI) ValueCopy(pdst *Value /* const */, psrc *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueCopy,
 		uintptr(unsafe.Pointer(pdst)),
 		uintptr(unsafe.Pointer(psrc)),
@@ -1474,7 +1474,7 @@ func (a *SciterAPI) ValueCopy(pdst *Value /* const */, psrc *Value) UINT {
 }
 
 func (a *SciterAPI) ValueIsolate(pdst *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueIsolate,
 		uintptr(unsafe.Pointer(pdst)),
 	)
@@ -1482,7 +1482,7 @@ func (a *SciterAPI) ValueIsolate(pdst *Value) UINT {
 }
 
 func (a *SciterAPI) ValueType( /* const */ pval *Value, pType *UINT, pUnits *UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueType,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pType)),
@@ -1492,7 +1492,7 @@ func (a *SciterAPI) ValueType( /* const */ pval *Value, pType *UINT, pUnits *UIN
 }
 
 func (a *SciterAPI) ValueStringData( /* const */ pval *Value, pChars *LPCWSTR, pNumChars *UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueStringData,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pChars)),
@@ -1502,7 +1502,7 @@ func (a *SciterAPI) ValueStringData( /* const */ pval *Value, pChars *LPCWSTR, p
 }
 
 func (a *SciterAPI) ValueStringDataSet(pval *Value, chars LPCWSTR, numChars UINT, units UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueStringDataSet,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(chars)),
@@ -1513,7 +1513,7 @@ func (a *SciterAPI) ValueStringDataSet(pval *Value, chars LPCWSTR, numChars UINT
 }
 
 func (a *SciterAPI) ValueIntData( /* const */ pval *Value, pData *INT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueIntData,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pData)),
@@ -1522,7 +1522,7 @@ func (a *SciterAPI) ValueIntData( /* const */ pval *Value, pData *INT) UINT {
 }
 
 func (a *SciterAPI) ValueIntDataSet(pval *Value, data INT, _type UINT, units UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueIntDataSet,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(data),
@@ -1533,7 +1533,7 @@ func (a *SciterAPI) ValueIntDataSet(pval *Value, data INT, _type UINT, units UIN
 }
 
 func (a *SciterAPI) ValueInt64Data( /* const */ pval *Value, pData *INT64) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueInt64Data,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pData)),
@@ -1542,7 +1542,7 @@ func (a *SciterAPI) ValueInt64Data( /* const */ pval *Value, pData *INT64) UINT 
 }
 
 func (a *SciterAPI) ValueInt64DataSet(pval *Value, data INT64, _type UINT, units UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueInt64DataSet,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(data),
@@ -1553,7 +1553,7 @@ func (a *SciterAPI) ValueInt64DataSet(pval *Value, data INT64, _type UINT, units
 }
 
 func (a *SciterAPI) ValueFloatData( /* const */ pval *Value, pData *FLOAT_VALUE) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueFloatData,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pData)),
@@ -1562,7 +1562,7 @@ func (a *SciterAPI) ValueFloatData( /* const */ pval *Value, pData *FLOAT_VALUE)
 }
 
 func (a *SciterAPI) ValueFloatDataSet(pval *Value, data FLOAT_VALUE, _type UINT, units UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueFloatDataSet,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(data),
@@ -1573,7 +1573,7 @@ func (a *SciterAPI) ValueFloatDataSet(pval *Value, data FLOAT_VALUE, _type UINT,
 }
 
 func (a *SciterAPI) ValueBinaryData( /* const */ pval *Value, pBytes *LPCBYTE, pnBytes *UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueBinaryData,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pBytes)),
@@ -1583,7 +1583,7 @@ func (a *SciterAPI) ValueBinaryData( /* const */ pval *Value, pBytes *LPCBYTE, p
 }
 
 func (a *SciterAPI) ValueBinaryDataSet(pval *Value, pBytes LPCBYTE, nBytes UINT, _type UINT, units UINT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueBinaryDataSet,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pBytes)),
@@ -1595,7 +1595,7 @@ func (a *SciterAPI) ValueBinaryDataSet(pval *Value, pBytes LPCBYTE, nBytes UINT,
 }
 
 func (a *SciterAPI) ValueElementsCount( /* const */ pval *Value, pn *INT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueElementsCount,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pn)),
@@ -1604,7 +1604,7 @@ func (a *SciterAPI) ValueElementsCount( /* const */ pval *Value, pn *INT) UINT {
 }
 
 func (a *SciterAPI) ValueNthElementValue( /* const */ pval *Value, n INT, pretval *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueNthElementValue,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(n),
@@ -1614,7 +1614,7 @@ func (a *SciterAPI) ValueNthElementValue( /* const */ pval *Value, n INT, pretva
 }
 
 func (a *SciterAPI) ValueNthElementValueSet(pval *Value, n INT /* const */, pval_to_set *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueNthElementValueSet,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(n),
@@ -1624,7 +1624,7 @@ func (a *SciterAPI) ValueNthElementValueSet(pval *Value, n INT /* const */, pval
 }
 
 func (a *SciterAPI) ValueNthElementKey( /* const */ pval *Value, n INT, pretval *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueNthElementKey,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(n),
@@ -1634,7 +1634,7 @@ func (a *SciterAPI) ValueNthElementKey( /* const */ pval *Value, n INT, pretval 
 }
 
 func (a *SciterAPI) ValueEnumElements( /* const */ pval *Value, penum uintptr, param LPVOID) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueEnumElements,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(penum)),
@@ -1644,7 +1644,7 @@ func (a *SciterAPI) ValueEnumElements( /* const */ pval *Value, penum uintptr, p
 }
 
 func (a *SciterAPI) ValueSetValueToKey(pval *Value /* const */, pkey *Value /* const */, pval_to_set *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueSetValueToKey,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pkey)),
@@ -1654,7 +1654,7 @@ func (a *SciterAPI) ValueSetValueToKey(pval *Value /* const */, pkey *Value /* c
 }
 
 func (a *SciterAPI) ValueGetValueOfKey( /* const */ pval *Value /* const */, pkey *Value, pretval *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueGetValueOfKey,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pkey)),
@@ -1664,7 +1664,7 @@ func (a *SciterAPI) ValueGetValueOfKey( /* const */ pval *Value /* const */, pke
 }
 
 func (a *SciterAPI) ValueToString(pval *Value, how VALUE_STRING_CVT_TYPE) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueToString,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(how),
@@ -1673,7 +1673,7 @@ func (a *SciterAPI) ValueToString(pval *Value, how VALUE_STRING_CVT_TYPE) UINT {
 }
 
 func (a *SciterAPI) ValueFromString(pval *Value, str LPCWSTR, strLength UINT, how VALUE_STRING_CVT_TYPE) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueFromString,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(str)),
@@ -1684,7 +1684,7 @@ func (a *SciterAPI) ValueFromString(pval *Value, str LPCWSTR, strLength UINT, ho
 }
 
 func (a *SciterAPI) ValueInvoke( /* const */ pval *Value, pthis *Value, argc UINT /* const */, argv *Value, pretval *Value, url LPCWSTR) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueInvoke,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pthis)),
@@ -1697,7 +1697,7 @@ func (a *SciterAPI) ValueInvoke( /* const */ pval *Value, pthis *Value, argc UIN
 }
 
 func (a *SciterAPI) ValueNativeFunctorSet(pval *Value, pinvoke uintptr, prelease uintptr, tag LPVOID) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueNativeFunctorSet,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(pinvoke)),
@@ -1708,7 +1708,7 @@ func (a *SciterAPI) ValueNativeFunctorSet(pval *Value, pinvoke uintptr, prelease
 }
 
 func (a *SciterAPI) ValueIsNativeFunctor( /* const */ pval *Value) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnValueIsNativeFunctor,
 		uintptr(unsafe.Pointer(pval)),
 	)
@@ -1716,7 +1716,7 @@ func (a *SciterAPI) ValueIsNativeFunctor( /* const */ pval *Value) SBOOL {
 }
 
 func (a *SciterAPI) SciterOpenArchive(archiveData LPCBYTE, archiveDataLength UINT) HSARCHIVE {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterOpenArchive,
 		uintptr(unsafe.Pointer(archiveData)),
 		uintptr(archiveDataLength),
@@ -1725,7 +1725,7 @@ func (a *SciterAPI) SciterOpenArchive(archiveData LPCBYTE, archiveDataLength UIN
 }
 
 func (a *SciterAPI) SciterGetArchiveItem(harc HSARCHIVE, path LPCWSTR, pdata *LPCBYTE, pdataLength *UINT) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetArchiveItem,
 		uintptr(harc),
 		uintptr(unsafe.Pointer(path)),
@@ -1736,7 +1736,7 @@ func (a *SciterAPI) SciterGetArchiveItem(harc HSARCHIVE, path LPCWSTR, pdata *LP
 }
 
 func (a *SciterAPI) SciterCloseArchive(harc HSARCHIVE) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCloseArchive,
 		uintptr(harc),
 	)
@@ -1744,7 +1744,7 @@ func (a *SciterAPI) SciterCloseArchive(harc HSARCHIVE) SBOOL {
 }
 
 func (a *SciterAPI) SciterFireEvent( /* const */ evt *BEHAVIOR_EVENT_PARAMS, post SBOOL) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterFireEvent,
 		uintptr(unsafe.Pointer(evt)),
 		uintptr(post),
@@ -1753,7 +1753,7 @@ func (a *SciterAPI) SciterFireEvent( /* const */ evt *BEHAVIOR_EVENT_PARAMS, pos
 }
 
 func (a *SciterAPI) SciterGetCallbackParam(hwnd HWINDOW) LPVOID {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetCallbackParam,
 		uintptr(hwnd),
 	)
@@ -1761,7 +1761,7 @@ func (a *SciterAPI) SciterGetCallbackParam(hwnd HWINDOW) LPVOID {
 }
 
 func (a *SciterAPI) SciterPostCallback(hwnd HWINDOW, wparam UINT_PTR, lparam UINT_PTR, timeoutms UINT) UINT_PTR {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterPostCallback,
 		uintptr(hwnd),
 		uintptr(wparam),
@@ -1772,7 +1772,7 @@ func (a *SciterAPI) SciterPostCallback(hwnd HWINDOW, wparam UINT_PTR, lparam UIN
 }
 
 func (a *SciterAPI) SciterCreateOnDirectXWindow(hwnd HWINDOW, pSwapChain *IUnknown) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterCreateOnDirectXWindow,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(pSwapChain)),
@@ -1781,7 +1781,7 @@ func (a *SciterAPI) SciterCreateOnDirectXWindow(hwnd HWINDOW, pSwapChain *IUnkno
 }
 
 func (a *SciterAPI) SciterRenderOnDirectXWindow(hwnd HWINDOW, elementToRenderOrNull HELEMENT, frontLayer SBOOL) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterRenderOnDirectXWindow,
 		uintptr(hwnd),
 		uintptr(elementToRenderOrNull),
@@ -1791,7 +1791,7 @@ func (a *SciterAPI) SciterRenderOnDirectXWindow(hwnd HWINDOW, elementToRenderOrN
 }
 
 func (a *SciterAPI) SciterRenderOnDirectXTexture(hwnd HWINDOW, elementToRenderOrNull HELEMENT, surface *IUnknown) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterRenderOnDirectXTexture,
 		uintptr(hwnd),
 		uintptr(elementToRenderOrNull),
@@ -1801,7 +1801,7 @@ func (a *SciterAPI) SciterRenderOnDirectXTexture(hwnd HWINDOW, elementToRenderOr
 }
 
 func (a *SciterAPI) SciterProcX(hwnd HWINDOW, pMsg *SCITER_X_MSG) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterProcX,
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(pMsg)),
@@ -1810,7 +1810,7 @@ func (a *SciterAPI) SciterProcX(hwnd HWINDOW, pMsg *SCITER_X_MSG) SBOOL {
 }
 
 func (a *SciterAPI) SciterAtomValue( /* const */ name *byte) UINT64 {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterAtomValue,
 		uintptr(unsafe.Pointer(name)),
 	)
@@ -1818,7 +1818,7 @@ func (a *SciterAPI) SciterAtomValue( /* const */ name *byte) UINT64 {
 }
 
 func (a *SciterAPI) SciterAtomNameCB(atomv UINT64, rcv *LPCSTR_RECEIVER, rcv_param LPVOID) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterAtomNameCB,
 		uintptr(atomv),
 		uintptr(unsafe.Pointer(rcv)),
@@ -1828,7 +1828,7 @@ func (a *SciterAPI) SciterAtomNameCB(atomv UINT64, rcv *LPCSTR_RECEIVER, rcv_par
 }
 
 func (a *SciterAPI) SciterSetGlobalAsset(pass *som_asset_t) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetGlobalAsset,
 		uintptr(unsafe.Pointer(pass)),
 	)
@@ -1836,7 +1836,7 @@ func (a *SciterAPI) SciterSetGlobalAsset(pass *som_asset_t) SBOOL {
 }
 
 func (a *SciterAPI) SciterGetElementAsset(el HELEMENT, nameAtom UINT64, ppass **som_asset_t) SCDOM_RESULT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetElementAsset,
 		uintptr(el),
 		uintptr(nameAtom),
@@ -1846,7 +1846,7 @@ func (a *SciterAPI) SciterGetElementAsset(el HELEMENT, nameAtom UINT64, ppass **
 }
 
 func (a *SciterAPI) SciterSetVariable(hwndOrNull HWINDOW, name LPCSTR /* const */, pvalToSet *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterSetVariable,
 		uintptr(hwndOrNull),
 		uintptr(unsafe.Pointer(name)),
@@ -1856,7 +1856,7 @@ func (a *SciterAPI) SciterSetVariable(hwndOrNull HWINDOW, name LPCSTR /* const *
 }
 
 func (a *SciterAPI) SciterGetVariable(hwndOrNull HWINDOW, name LPCSTR, pvalToGet *Value) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetVariable,
 		uintptr(hwndOrNull),
 		uintptr(unsafe.Pointer(name)),
@@ -1866,7 +1866,7 @@ func (a *SciterAPI) SciterGetVariable(hwndOrNull HWINDOW, name LPCSTR, pvalToGet
 }
 
 func (a *SciterAPI) SciterElementUnwrap( /* const */ pval *Value, ppElement *HELEMENT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterElementUnwrap,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(ppElement)),
@@ -1875,7 +1875,7 @@ func (a *SciterAPI) SciterElementUnwrap( /* const */ pval *Value, ppElement *HEL
 }
 
 func (a *SciterAPI) SciterElementWrap(pval *Value, pElement HELEMENT) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterElementWrap,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(pElement),
@@ -1884,7 +1884,7 @@ func (a *SciterAPI) SciterElementWrap(pval *Value, pElement HELEMENT) UINT {
 }
 
 func (a *SciterAPI) SciterNodeUnwrap( /* const */ pval *Value, ppNode *HNODE) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeUnwrap,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(unsafe.Pointer(ppNode)),
@@ -1893,7 +1893,7 @@ func (a *SciterAPI) SciterNodeUnwrap( /* const */ pval *Value, ppNode *HNODE) UI
 }
 
 func (a *SciterAPI) SciterNodeWrap(pval *Value, pNode HNODE) UINT {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterNodeWrap,
 		uintptr(unsafe.Pointer(pval)),
 		uintptr(pNode),
@@ -1902,7 +1902,7 @@ func (a *SciterAPI) SciterNodeWrap(pval *Value, pNode HNODE) UINT {
 }
 
 func (a *SciterAPI) SciterReleaseGlobalAsset(pass *som_asset_t) SBOOL {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterReleaseGlobalAsset,
 		uintptr(unsafe.Pointer(pass)),
 	)
@@ -1910,7 +1910,7 @@ func (a *SciterAPI) SciterReleaseGlobalAsset(pass *som_asset_t) SBOOL {
 }
 
 func (a *SciterAPI) SciterExec(appCmd SCITER_APP_CMD, p1 UINT_PTR, p2 UINT_PTR) INT_PTR {
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterExec,
 		uintptr(appCmd),
 		uintptr(p1),
@@ -1919,8 +1919,8 @@ func (a *SciterAPI) SciterExec(appCmd SCITER_APP_CMD, p1 UINT_PTR, p2 UINT_PTR) 
 	return INT_PTR(ret)
 }
 
-func (a *SciterAPI) SciterWindowExec(hwnd HWINDOW, windowCmd UINT, p1 UINT_PTR, p2 UINT_PTR) INT_PTR {
-	ret, _, _ := syscall.SyscallN(
+func (a *SciterAPI) SciterWindowExec(hwnd HWINDOW, windowCmd SCITER_WINDOW_CMD, p1 UINT_PTR, p2 UINT_PTR) INT_PTR {
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterWindowExec,
 		uintptr(hwnd),
 		uintptr(windowCmd),

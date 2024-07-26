@@ -3,38 +3,8 @@ package sciter
 import (
 	"golang.org/x/sys/windows"
 	"path/filepath"
-	"sync"
 	"unsafe"
 )
-
-var defaultMutex sync.Mutex
-var defaultApi *SciterAPI
-
-func GetApi() *SciterAPI {
-	defaultMutex.Lock()
-	defer defaultMutex.Unlock()
-
-	if defaultApi != nil {
-		return defaultApi
-	}
-
-	// default
-	setDLL("")
-
-	return defaultApi
-}
-
-func SetApi(api *SciterAPI) {
-	defaultMutex.Lock()
-	defer defaultMutex.Unlock()
-	setApi(api)
-}
-
-func SetDLL(dir string) {
-	defaultMutex.Lock()
-	defer defaultMutex.Unlock()
-	setDLL(dir)
-}
 
 func setDLL(dir string) {
 	var dll string
@@ -48,11 +18,6 @@ func setDLL(dir string) {
 		panic(err)
 	}
 	setApi(api)
-}
-
-func setApi(api *SciterAPI) {
-	api.SciterExec(SCITER_APP_INIT, 0, 0)
-	defaultApi = api
 }
 
 func loadApi(dll string) (*SciterAPI, error) {

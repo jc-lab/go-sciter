@@ -1,6 +1,5 @@
 package sciter
 
-import "C"
 import (
 	"fmt"
 	"unsafe"

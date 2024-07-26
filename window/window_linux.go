@@ -1,25 +1,7 @@
 package window
 
-/*
-#cgo linux pkg-config: gtk+-3.0
-
-#include <gtk/gtk.h>
-#include <stdlib.h>
-
-GtkWindow* gwindow(GtkWidget* hwnd) {
-  return hwnd ? GTK_WINDOW(gtk_widget_get_toplevel(hwnd)) : NULL;
-}
-
-void gshow(GtkWidget* hwnd){
-  if(hwnd) gtk_window_present(gwindow(hwnd));
-}
-
-*/
-import "C"
 import (
 	"fmt"
-	"unsafe"
-
 	"github.com/jc-lab/go-sciter"
 )
 
@@ -44,26 +26,12 @@ func New(creationFlags sciter.WindowCreationFlag, rect *sciter.Rect) (*Window, e
 }
 
 func (s *Window) SetTitle(title string) {
-	w := C.gwindow((*C.GtkWidget)(unsafe.Pointer(s.GetHwnd())))
-	t := C.CString(title)
-	C.gtk_window_set_title(w, t)
-	C.free(unsafe.Pointer(t))
+	//	w := C.gwindow((*C.GtkWidget)(unsafe.Pointer(s.GetHwnd())))
+	//	t := C.CString(title)
+	//	C.gtk_window_set_title(w, t)
+	//	C.free(unsafe.Pointer(t))
 }
 
 func (s *Window) AddQuitMenu() {
 	// Define behaviour for linux
-}
-
-func (s *Window) Show() {
-	w := (*C.GtkWidget)(unsafe.Pointer(s.GetHwnd()))
-	C.gshow(w)
-}
-
-func (s *Window) Run() {
-	s.run()
-	C.gtk_main()
-}
-
-func init() {
-	C.gtk_init(nil, nil)
 }

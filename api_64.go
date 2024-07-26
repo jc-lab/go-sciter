@@ -4,13 +4,13 @@
 package sciter
 
 import (
-	"syscall"
+	"github.com/ebitengine/purego"
 	"unsafe"
 )
 
 func (a *SciterAPI) SciterFindElement(hwnd HWINDOW, pt Point, phe *HELEMENT) SCDOM_RESULT {
 	unsafePt := (*uintptr)(unsafe.Pointer(&pt))
-	ret, _, _ := syscall.SyscallN(
+	ret, _, _ := purego.SyscallN(
 		a.fnSciterGetFocusElement,
 		uintptr(hwnd),
 		*unsafePt,

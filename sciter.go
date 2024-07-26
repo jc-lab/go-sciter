@@ -6,10 +6,10 @@ package sciter
 
 import (
 	"fmt"
+	"github.com/ebitengine/purego"
 	"log"
 	"runtime"
 	"strings"
-	"syscall"
 	"unsafe"
 )
 
@@ -230,7 +230,7 @@ func goSciterHostCallback(ph unsafe.Pointer, callbackParam unsafe.Pointer) int {
 }
 
 var (
-	sciterhostcallback     = syscall.NewCallback(goSciterHostCallback)
+	sciterhostcallback     = purego.NewCallback(goSciterHostCallback)
 	globalCallbackHandlers = make([]*CallbackHandler, 0)
 )
 
@@ -724,7 +724,7 @@ func (e *Element) ParentElement() (*Element, error) {
 //     sciter::astring* s = (sciter::astring*)param;
 //     *s = sciter::astring((const char*)bytes,num_bytes);
 // }
-// var _LPCSTR_RECEIVER = syscall.NewCallback(func(bs *byte, n uint, param uintptr) int {
+// var _LPCSTR_RECEIVER = purego.NewCallback(func(bs *byte, n uint, param uintptr) int {
 //     s := (*string)(unsafe.Pointer(param))
 //     *s = bytePtrToString(bs)
 //     return 0
@@ -735,7 +735,7 @@ func (e *Element) ParentElement() (*Element, error) {
 //     sciter::string* s = (sciter::string*)param;
 //     *s = sciter::string(str,str_length);
 // }
-// var _LPCWSTR_RECEIVER = syscall.NewCallback(func(bs *uint16, n uint, param uintptr) int {
+// var _LPCWSTR_RECEIVER = purego.NewCallback(func(bs *uint16, n uint, param uintptr) int {
 //     s := (*string)(unsafe.Pointer(param))
 //     *s = utf16ToString(bs)
 //     return 0
@@ -766,9 +766,9 @@ func goLPCSTR_RECEIVER(bs LPCSTR, n uint, param unsafe.Pointer) int {
 }
 
 var (
-	lpcbyte_receiver = syscall.NewCallback(goLPCBYTE_RECEIVER)
-	lpcwstr_receiver = syscall.NewCallback(goLPCWSTR_RECEIVER)
-	lpcstr_receiver  = syscall.NewCallback(goLPCSTR_RECEIVER)
+	lpcbyte_receiver = purego.NewCallback(goLPCBYTE_RECEIVER)
+	lpcwstr_receiver = purego.NewCallback(goLPCWSTR_RECEIVER)
+	lpcstr_receiver  = purego.NewCallback(goLPCSTR_RECEIVER)
 )
 
 // SCDOM_RESULT  SciterGetElementHtmlCB(HELEMENT he, BOOL outer, LPCBYTE_RECEIVER* rcv, LPVOID rcv_param) ;//{ return SAPI()->SciterGetElementHtmlCB( he, outer, rcv, rcv_param); }
@@ -1100,7 +1100,7 @@ func goSciterElementCallback(he HELEMENT, param unsafe.Pointer) int {
 }
 
 var (
-	sciterElementCallback        = syscall.NewCallback(goSciterElementCallback)
+	sciterElementCallback        = purego.NewCallback(goSciterElementCallback)
 	globalElementCallbackResults = make([][]*Element, 0)
 )
 
@@ -1536,7 +1536,7 @@ var (
 )
 
 func init() {
-	element_event_proc = syscall.NewCallback(goElementEventProc)
+	element_event_proc = purego.NewCallback(goElementEventProc)
 }
 
 // SCDOM_RESULT  SciterDetachEventHandler( HELEMENT he, LPELEMENT_EVENT_PROC pep, LPVOID tag )
@@ -1775,7 +1775,7 @@ func goELEMENT_COMPARATOR(he1 unsafe.Pointer, he2 unsafe.Pointer, arg unsafe.Poi
 }
 
 var (
-	element_comparator = syscall.NewCallback(goELEMENT_COMPARATOR)
+	element_comparator = purego.NewCallback(goELEMENT_COMPARATOR)
 )
 
 // SCDOM_RESULT  SciterSortElements( HELEMENT he, UINT firstIndex, UINT lastIndex, ELEMENT_COMPARATOR* cmpFunc, LPVOID cmpFuncParam ) ;//{ return SAPI()->SciterSortElements( he, firstIndex, lastIndex, cmpFunc, cmpFuncParam ); }
@@ -2270,7 +2270,7 @@ func goKeyValueCallback(param unsafe.Pointer, key, value *Value) uintptr {
 }
 
 var (
-	key_value_callback = syscall.NewCallback(goKeyValueCallback)
+	key_value_callback = purego.NewCallback(goKeyValueCallback)
 )
 
 /**
@@ -2436,8 +2436,8 @@ func goNATIVE_FUNCTOR_RELEASE(tag unsafe.Pointer) int {
 }
 
 var (
-	pinvoke  = syscall.NewCallback(goNATIVE_FUNCTOR_INVOKE)
-	prelease = syscall.NewCallback(goNATIVE_FUNCTOR_RELEASE)
+	pinvoke  = purego.NewCallback(goNATIVE_FUNCTOR_INVOKE)
+	prelease = purego.NewCallback(goNATIVE_FUNCTOR_RELEASE)
 )
 
 // typedef VOID NATIVE_FUNCTOR_RELEASE( VOID* tag );
